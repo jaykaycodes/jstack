@@ -1,18 +1,19 @@
 ---
 name: factory-stack
-description: Apply the factory's opinionated stack and provider defaults when starting a project, adding infrastructure, or revising development tooling. Preserve mature existing setups unless a concrete requirement justifies migration.
+description: Apply the factory's stack and provider defaults when starting a project, adding infrastructure, or revising development tooling.
 ---
 
 # Factory stack
 
-Use these choices for new work. They are Jake's starting preferences, not universal rankings. A concrete product, platform, compatibility, or operational requirement can justify an exception. Record the reason briefly, then update the task interface, infrastructure, secrets, observability, and docs together.
+Use these defaults for new work. Keep a mature working setup unless a concrete requirement justifies migration. Record deviations briefly and carry them through tasks, infrastructure, secrets, observability, and docs.
 
 - Read [stack.md](references/stack.md) for project profiles, Effect boundaries, libraries, and proof tools.
 - Read [providers.md](references/providers.md) for AWS, Cloudflare, PlanetScale, Alchemy, and offloaded compute.
 - Read [setup.md](references/setup.md) when establishing the box, toolchain, clients, project tasks, and initial CI.
+- Read [emerging options](../../references/emerging.md) when evaluating a specific unmet need. These are candidates, not automatic additions.
 
-Core defaults are Bun workspaces and runtime, TypeScript, Effect v4 for application services, just for tasks, mise for tool versions, Vite+ for JS/TS tooling, and Fallow for quality audit. AWS is the main product and agent-box provider. Cloudflare is the default for DNS/CDN and a strong fit for small HTTP or content projects. PlanetScale Postgres is the default for substantial managed PostgreSQL needs.
+Core defaults are Bun workspaces and runtime, TypeScript, Effect v4 services, just, mise, Vite+, and Fallow. Use AWS for the agent box and main product, Cloudflare for DNS/CDN and small HTTP/content projects, PlanetScale for substantial managed Postgres, Alchemy for infrastructure, and GitHub Actions for initial continuous integration.
 
-Choose a compatible currently supported release from official docs, then pin its exact version and dependencies. Do not keep a permanent "latest" toolchain or blindly copy unusual compiler patches, custom wrappers, or private repository conventions. Read the Effect v4 docs and installed source before writing Effect APIs; verify that any supplementary guidance actually covers v4.
+Choose compatible supported releases from official docs, then pin exact versions and dependencies. Read Effect v4 docs and installed source before writing Effect APIs; verify supplementary guidance covers v4. Do not import another repository's compiler patches or wrappers without a demonstrated need.
 
-Finish when the chosen profile has reproducible setup, real task commands and checks, a working proof surface, and documented provider/runtime boundaries. A list of installed dependencies is not an implemented profile.
+Done means the selected profile has reproducible setup, real task commands, a working proof surface, and documented runtime boundaries.

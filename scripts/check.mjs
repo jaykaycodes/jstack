@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const write = process.argv.slice(2).includes('--write');
@@ -52,6 +53,14 @@ function walk(path = '') {
   });
 }
 for (const path of walk()) {
+  if (/\.sh$/.test(path)) {
+    const result = spawnSync('bash', ['-n', join(root, path)], { encoding: 'utf8', timeout: 10_000 });
+    if (result.status !== 0) fail(`${path}: shell syntax check failed${result.error ? ` (${result.error.message})` : ''}\n${result.stderr ?? ''}`);
+  }
+  if (/\.(?:mjs|cjs|js)$/.test(path)) {
+    const result = spawnSync(process.execPath, ['--check', join(root, path)], { encoding: 'utf8', timeout: 10_000 });
+    if (result.status !== 0) fail(`${path}: JavaScript syntax check failed${result.error ? ` (${result.error.message})` : ''}\n${result.stderr ?? ''}`);
+  }
   if (path.endsWith('.json')) { try { JSON.parse(read(path)); } catch { fail(`${path}: invalid JSON`); } }
   if (!/\.(?:md|mdc)$/.test(path)) continue;
   const prose = read(path).replace(/```[^\n]*\n[\s\S]*?```/g, '');
@@ -63,4 +72,4 @@ for (const path of walk()) {
   }
 }
 if (errors.length) { process.stderr.write(`${errors.join('\n')}\n`); process.exitCode = 1; }
-else process.stdout.write(`Structure checked: ${skills.length} skills, metadata, derived baseline, JSON, and local link targets. No client or infrastructure verification.\n`);
+else process.stdout.write(`Structure and syntax checked: ${skills.length} skills, metadata, derived baseline, JSON, local link targets, shell, and JavaScript. No example scripts executed or client/infrastructure verification.\n`);

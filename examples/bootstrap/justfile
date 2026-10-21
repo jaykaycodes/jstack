@@ -1,0 +1,12 @@
+# Keep this file beside doctor.mjs and teammate-role.json in your local example directory.
+default:
+    @just --list
+
+# Structural checks only; no providers, clients, installations, or cloud writes.
+check:
+    node --check doctor.mjs
+    node -e 'const p=JSON.parse(require("node:fs").readFileSync("teammate-role.json","utf8")); if(p.Version!=="2012-10-17"||!Array.isArray(p.Statement)||p.Statement.length===0) process.exit(1)'
+
+# Real read-only cloud probes, bounded individually. Requires configured runtime identity.
+doctor:
+    node doctor.mjs

@@ -1,81 +1,63 @@
 # Ordered setup
 
-This is the receiving agent's implementation sequence. It is not an installer shipped or executed by this repository. Read current official documentation for installation, identity setup, and API details, then record exact selected versions and local commands.
+The agent performs this sequence. Use Claude Code or Codex attached to a shell on the engineer's machine, then on the box. Chat-only Cowork/claude.ai can guide the work or hand off to a box session; connected tools may provide execution, but a prompt alone does not. [Claude Code Remote Control](https://code.claude.com/docs/en/remote-control) lets web/mobile front an existing host session.
 
-## 1. Inventory and scope
+## 1. Establish the outcome and sign in
 
-Inspect what works already. Establish the owner's first project, accounts, monthly budget, region, repository destination, coding clients, and shipping authority. Use the defaults in [stack.md](stack.md) and [providers.md](providers.md) for gaps. Do not migrate a mature setup merely to match this seed. Record deviations and required human enrollment steps.
+Inspect existing tools, repositories, accounts, and credentials without displaying secrets. Learn the first project, region, budget, and shipping policy. Use [stack.md](stack.md) and [providers.md](providers.md) for new choices. A few concrete decisions are enough to start.
 
-## 2. Establish the box and identity
+Follow [provider access](../../../references/access.md) to guide AWS, GitHub, Cloudflare, PlanetScale, and the chosen coding-client login as needed. Use browser/computer tools for available clicks; the owner handles passwords, MFA, billing enrollment, and required consent. Request the broadest supported role or token within the owner-authorized factory scope, and securely store the usable credentials on the box. Preserve authorization rather than repeatedly asking for routine setup actions.
 
-Create or reuse the AWS Linux agent box with persistent encrypted storage, Systems Manager access, appropriate network access, and identity within the agreed budget. Document recreation, reconnect, and recovery. Grant the agent control needed to repair its environment. Set up secrets through the chosen store and service IAM roles rather than committed files or printed values.
+## 2. Provision the admin box
 
-Install [mise from its current official instructions](https://mise.jdx.dev/getting-started.html). Create a repository `mise.toml` with exact supported versions of Bun, Node.js, just, GitHub CLI, ripgrep, and jq. Add Python and uv when using that profile, and AWS/cloud tools needed for the selected providers. Verify each tool's current mise backend rather than guessing plugin names. Native dependencies and agent clients also need documented installation.
+Start with a dedicated AWS factory account and a persistent Linux EC2 box. Use the [reference provisioning and box setup](../../../examples/bootstrap/README.md), reviewing its inputs for the owner's region/network before running commands. It provides the concrete path; adapt the implementation rather than stopping at an infrastructure plan.
 
-On the agent box, in the repository containing the reviewed mise configuration:
+Use encrypted persistent storage, Systems Manager access, outbound connectivity, and an instance role with temporary AWS credentials. Start around 4 vCPU and 16 GB if budget permits; choose ARM when dependencies support it, otherwise x86. Grant broad account/box administration for bootstrap. Do not create AWS root keys. Record reconnect, recovery, resource ownership, and cleanup.
+
+## 3. Install tools and operate the agent on the box
+
+Use [mise](https://mise.jdx.dev/getting-started.html) with exact supported versions for Bun, Node.js, just, GitHub CLI, ripgrep, jq, and the selected cloud tooling. Add Python/uv for that profile. Start with the concrete tool setup in the reference, updating pins deliberately from current official docs.
+
+On the box, from the reviewed tool configuration:
 
 ```sh
 mise install
 ```
 
-For interactive use, follow [mise's shell activation instructions](https://mise.jdx.dev/getting-started.html#activate-mise) for the actual shell. The commands below use `mise exec` from the project root so they do not depend on shell activation. Ensure mise itself is available to that process.
+Follow mise's shell activation instructions for interactive use. Recipes and services should use `mise exec` from the intended project directory, or an explicit pinned-tool PATH. Services need their own working directory, environment, and credential access; shell startup files do not supply these automatically.
 
-Install the owner's coding clients from current official documentation. Authenticate the interactive client and, separately, any headless worker service. Define the service's working directory, runtime environment, and credential access explicitly. Services should invoke tools through an absolute mise executable path with `exec`, or receive an explicit PATH to the pinned tool installations; shell startup files are not proof that a service receives them.
+Install the chosen coding client from its official documentation and complete its login on the box. Authentication status checks confirm configuration; get a real response from that agent before calling it working. Keep the session running across disconnects using a supported persistent session arrangement.
 
-For a GitHub login check, on the box as the actual agent user:
+## 4. Connect source and shared workflows
 
-```sh
-mise exec -- gh auth status
-```
+Clone the owner's project and workflow source. Wire the same four skills into the clients the owner uses: [Claude Code, Codex, and Cursor](../../grow-factory/references/shared-workflows.md). Preserve existing project instructions and record the adopted source revision. Start a project worktree; keep concurrent tasks and ports isolated.
 
-For an AWS identity check, in the runtime that will make AWS calls:
+## 5. Pass a real task and start the project
 
-```sh
-mise exec -- aws sts get-caller-identity
-```
+Use the reference's `just doctor` and `just check` as actual starting commands, then implement the project's [task contracts](../../grow-factory/references/bootstrap.md). Doctor should exercise needed provider capabilities as the current runtime, reporting missing required access as a failure. Do not run paid model probes just to check credentials; the agent's first real response is useful evidence already.
 
-These are identity checks, not proof of every required capability. Inspect output locally; redact account and identity identifiers in shared evidence, and never print credentials. Run a harmless real operation for each required service as part of doctor. A headless worker must pass its own probes.
-
-## 3. Clone source and wire common workflows
-
-Clone the owner's own projects and the owner-controlled shared workflow repository or plugin. Keep a recorded upstream commit for this starter and local adaptations. Use one baseline and skill source across Codex, Cursor, and Claude Code, with thin adapters appropriate to each client. Do not overwrite existing instructions. Use [shared-workflows.md](../../grow-factory/references/shared-workflows.md) for adapter wiring and fresh-session discovery checks.
-
-Set up per-task worktrees and separate service ports on a shared box. Write down process ownership and cleanup. Keep durable project knowledge separate from active task state.
-
-## 4. Implement the task contracts
-
-Create real `just` recipes for `bootstrap`, `doctor`, `dev`, `check`, `audit`, `prove`, and `deploy` where applicable. Keep substantive automation in scripts or tools behind recipes. A missing required dependency exits nonzero with an actionable failure. Do not create fake passing placeholders.
-
-From the project root on the agent box, inspect the recipes:
+From the project root on the box:
 
 ```sh
 mise exec -- just --list
 ```
 
-For a new Bun workspace, after reviewing package definitions:
+For the selected Bun project, review package definitions, install, and commit its lockfile:
 
 ```sh
 mise exec -- bun install
 ```
 
-Commit the resulting lockfile. Continuous integration and reproducible existing-workspace setup use:
+Existing-workspace reproducible installs and continuous integration use:
 
 ```sh
 mise exec -- bun install --frozen-lockfile
 ```
 
-`bootstrap` should install the supported pinned environment and dependencies idempotently. `doctor` should make real capability probes. `dev` should report the actual address and cleanup command. `check` should run the configured formatter/linter, type checker, and relevant automated checks; use the local Vite+ command through `bun vp` in recipes. `audit` should run Fallow for JS/TS and make findings reviewable. `prove` should exercise the actual browser, device, service, or data output. `deploy` should identify the target and follow owner authority, with a verifiable result.
+Choose only the needed profile and start a real task. Use local development and preview first; add staging/production, authentication, durable work, and analytics when the project calls for them. GitHub Actions should call the same task interface. Keep infrastructure in Alchemy where supported, artifacts in S3/R2, and errors/logs available for the actual runtime.
 
-Read current [Vite+ setup and migration docs](https://viteplus.dev/guide/) and [Fallow docs](https://github.com/fallow-rs/fallow) before selecting flags. Do not import another repository's private command wrappers or unusual compiler patches as defaults.
+The first-hour target is a reachable box, a real coding-agent response on it, a passing doctor/check, and a started project worktree with the next action. Signup delays can extend it. Deliver the project through [factory-work](../../factory-work/SKILL.md); improve from its friction through [factory-maintain](../../factory-maintain/SKILL.md).
 
-## 5. Build the chosen profile
+## 6. Separate access before the trust boundary grows
 
-Scaffold only the first project's profile. For an interactive product, start React + Vite with Bun + Effect services and local PostgreSQL if persistence is needed. For content or a quick internal tool, Astro or a small Workers application may suffice. Use the provider profile for data and deployment, and adapt APIs to the actual runtime. Add authentication, durable work, product AI, analytics, or mobile tooling when needed.
-
-Use local development and a usable preview first. Add staging and production environments when release risk and the product warrant them, with separate secrets, identity, data, and clearly identified targets. Declare infrastructure with Alchemy where supported. Store artifacts in S3 or R2 and expose useful logs, errors, and product signals.
-
-## 6. Close the loop, then maintain
-
-Make GitHub Actions call the same task contracts used locally. Complete the first project through planning, build, review, and proof on the changed artifact. Validate guidance discovery in a fresh client session when that capability is part of the claim; explicit file reads remain a useful fallback.
-
-Record friction and a manual evidenced improvement. Schedule maintenance only after a useful manual run and sufficient recurring need. Stop after the agreed outcome, leaving exact human steps and honest gaps instead of an endless setup project.
+Keep a deliberate admin path for factory repair. Before teammates, unattended jobs, production data, or unrelated projects share the setup, follow the [account split and teammate examples](../../../examples/bootstrap/README.md). Daily/project identities receive scoped credentials, not a shared admin token. Prove replacement roles and both sides of cross-account trust before revoking or rotating bootstrap credentials. Same-account IAM administration is not isolation from someone who can change the policies. The access guide owns provider details.

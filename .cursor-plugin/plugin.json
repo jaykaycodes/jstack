@@ -1,6 +1,6 @@
 {
   "name": "software-factory-starter",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Bootstrap an agent box, build with shared workflows and strong stack defaults, and improve the factory from real work.",
   "author": {
     "name": "Jake Correa"

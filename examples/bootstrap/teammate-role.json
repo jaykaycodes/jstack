@@ -1,0 +1,35 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadStagingParameters",
+      "Effect": "Allow",
+      "Action": ["ssm:GetParameter", "ssm:GetParameters"],
+      "Resource": "arn:aws:ssm:us-east-1:222222222222:parameter/factory/staging/*"
+    },
+    {
+      "Sid": "BlockParametersOutsideStagingEvenWithSSMCore",
+      "Effect": "Deny",
+      "Action": "ssm:GetParameter*",
+      "NotResource": "arn:aws:ssm:us-east-1:222222222222:parameter/factory/staging/*"
+    },
+    {
+      "Sid": "UseKnownNamesInsteadOfRecursivePaths",
+      "Effect": "Deny",
+      "Action": "ssm:GetParametersByPath",
+      "Resource": "*"
+    },
+    {
+      "Sid": "NoBootstrapVaultOrPrivilegeChanges",
+      "Effect": "Deny",
+      "Action": ["iam:*", "sts:AssumeRole", "sts:AssumeRoleWithSAML", "sts:AssumeRoleWithWebIdentity", "secretsmanager:GetSecretValue", "secretsmanager:BatchGetSecretValue"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadEC2ForDoctor",
+      "Effect": "Allow",
+      "Action": "ec2:DescribeInstances",
+      "Resource": "*"
+    }
+  ]
+}

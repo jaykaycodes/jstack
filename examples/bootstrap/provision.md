@@ -52,7 +52,11 @@ export FACTORY_AMI_ID="$(aws ssm get-parameter --name /aws/service/ami-amazon-li
 
 Launch once. The example uses an [M7g instance](https://aws.amazon.com/ec2/instance-types/general-purpose/) with 4 vCPU, 16 GiB memory, fixed CPU performance without T-family CPU credits, and an encrypted 80 GB root volume retained after termination. Confirm current price and fit the owner's budget before running it. IAM changes can take time to propagate; if the profile is not yet available, check it and retry only after confirming no instance was created.
 
-Before launching, create an [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) monthly cost budget with an email alert at the owner's agreed amount; alerts can lag and are not a hard spending cap.
+Before launching, set an [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) email alert for the agreed monthly amount; alerts can lag and do not cap spending.
+
+For eligible Paid Plan projects in the limited-rollout [new AWS experience](https://docs.aws.amazon.com/accounts/latest/reference/sign-up-for-aws.html), prefer a [project spend limit](https://docs.aws.amazon.com/accounts/latest/reference/create-spend-limit.html). Set the agreed monthly pre-tax cap under **AWS Settings > Billing > Cost by project > Spend limit**. The minimum is the greater of $20 or AWS's estimated likely spend. Reaching it stops the project's resources, including this box; increase it to reactivate. After 90 paused days without action, project data is permanently deleted.
+
+Traditional/advanced accounts lack these caps. [Budget actions](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-controls.html) can stop selected EC2/RDS instances or apply IAM/SCP policies, but are not an instant universal spending cap.
 
 ```sh
 export FACTORY_INSTANCE_ID="$(aws ec2 run-instances --image-id "$FACTORY_AMI_ID" --instance-type m7g.xlarge --count 1 --iam-instance-profile "Name=$FACTORY_NAME" --network-interfaces "DeviceIndex=0,SubnetId=$FACTORY_SUBNET_ID,Groups=$FACTORY_GROUP_ID,AssociatePublicIpAddress=true" --metadata-options 'HttpTokens=required,HttpEndpoint=enabled' --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":80,"VolumeType":"gp3","Encrypted":true,"DeleteOnTermination":false}}]' --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$FACTORY_NAME},{Key=Owner,Value=factory-bootstrap}]" --query 'Instances[0].InstanceId' --output text)"

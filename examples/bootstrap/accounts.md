@@ -6,6 +6,8 @@ The fictional management, staging, production, and unrelated-project account num
 
 ## Create or reuse the organization
 
+If arriving from the new AWS experience, inspect its AWS-managed organization before using this path. [Activating advanced features](https://docs.aws.amazon.com/accounts/latest/reference/activate-advanced-features.html) is irreversible: it removes spend limits, reactivates paused projects, and prevents new limits. Establish replacement alerts/actions first and get the owner's explicit decision before activation. Creating a classic member account does not automatically give it a project spend limit.
+
 From the authorized management administrator session, inspect the existing organization first. Create one only if there is none and the owner authorized account creation and consolidated billing:
 
 ```sh

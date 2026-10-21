@@ -1,6 +1,6 @@
 # Provision one admin box with AWS CLI
 
-This is one concrete path using AWS CLI rather than a second infrastructure framework. It creates billable resources, has not been run by this pull request, and is not a rerunnable installer. Review the access and budget grant first. Use fresh names; if a resource already exists, inspect it instead of silently replacing it. Convert the chosen configuration to your infrastructure-as-code after the first useful loop works.
+This is one concrete path using AWS CLI rather than a second infrastructure framework. It creates billable resources and is not a rerunnable installer. These examples are untested end-to-end. Review the access and budget grant first. Use fresh names; if a resource already exists, inspect it instead of silently replacing it. Convert the chosen configuration to your infrastructure-as-code after the first useful loop works.
 
 ## Launch from the owner's authenticated AWS session
 
@@ -50,10 +50,12 @@ Resolve the current Amazon Linux 2023 ARM image from AWS's public parameter. Rec
 export FACTORY_AMI_ID="$(aws ssm get-parameter --name /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64 --query Parameter.Value --output text)"
 ```
 
-Launch once. The example uses 4 vCPU, 16 GB memory, and an encrypted 80 GB root volume retained after termination. Confirm current price and fit the owner's budget before running it. IAM changes can take time to propagate; if the profile is not yet available, check it and retry only after confirming no instance was created.
+Launch once. The example uses an [M7g instance](https://aws.amazon.com/ec2/instance-types/general-purpose/) with 4 vCPU, 16 GiB memory, fixed CPU performance without T-family CPU credits, and an encrypted 80 GB root volume retained after termination. Confirm current price and fit the owner's budget before running it. IAM changes can take time to propagate; if the profile is not yet available, check it and retry only after confirming no instance was created.
+
+Before launching, create an [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) monthly cost budget with an email alert at the owner's agreed amount; alerts can lag and are not a hard spending cap.
 
 ```sh
-export FACTORY_INSTANCE_ID="$(aws ec2 run-instances --image-id "$FACTORY_AMI_ID" --instance-type t4g.xlarge --count 1 --iam-instance-profile "Name=$FACTORY_NAME" --network-interfaces "DeviceIndex=0,SubnetId=$FACTORY_SUBNET_ID,Groups=$FACTORY_GROUP_ID,AssociatePublicIpAddress=true" --metadata-options 'HttpTokens=required,HttpEndpoint=enabled' --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":80,"VolumeType":"gp3","Encrypted":true,"DeleteOnTermination":false}}]' --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$FACTORY_NAME},{Key=Owner,Value=factory-bootstrap}]" --query 'Instances[0].InstanceId' --output text)"
+export FACTORY_INSTANCE_ID="$(aws ec2 run-instances --image-id "$FACTORY_AMI_ID" --instance-type m7g.xlarge --count 1 --iam-instance-profile "Name=$FACTORY_NAME" --network-interfaces "DeviceIndex=0,SubnetId=$FACTORY_SUBNET_ID,Groups=$FACTORY_GROUP_ID,AssociatePublicIpAddress=true" --metadata-options 'HttpTokens=required,HttpEndpoint=enabled' --block-device-mappings '[{"DeviceName":"/dev/xvda","Ebs":{"VolumeSize":80,"VolumeType":"gp3","Encrypted":true,"DeleteOnTermination":false}}]' --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$FACTORY_NAME},{Key=Owner,Value=factory-bootstrap}]" --query 'Instances[0].InstanceId' --output text)"
 aws ec2 wait instance-status-ok --instance-ids "$FACTORY_INSTANCE_ID"
 ```
 
@@ -101,7 +103,7 @@ cd "$HOME/factory-bootstrap"
 Select supported versions once, then commit the exact resulting `mise.toml` in your own repository. `--pin` resolves these selectors to exact versions; do not keep moving `latest` selectors in the adopted configuration. Confirm the current [mise backends](https://mise.jdx.dev/registry.html) before changing this list.
 
 ```sh
-mise use --pin bun@latest node@lts just@latest github-cli@latest aws-cli@latest
+mise use --pin bun@latest node@lts just@latest github-cli@latest aws-cli@latest ripgrep@latest jq@latest
 ```
 
 Copy this example's `doctor.mjs`, `teammate-role.json`, and `justfile` here. Review copied configuration before trusting it. Use `mise exec --` for commands and service launchers so the pinned environment does not depend on an interactive shell's activation.

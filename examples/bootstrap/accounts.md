@@ -1,6 +1,6 @@
 # Evolve from one administrator to scoped daily boxes
 
-Keep the initial full-admin path while getting the first useful project loop working. Then review everyday access. Establish these boundaries before production customer data, teammates, unattended jobs, or unrelated projects enter the setup. This is a reference path, not a claim that this pull request has created or tested accounts or policies.
+Keep the initial full-admin path while getting the first useful project loop working. Then review everyday access. Establish these boundaries before production customer data, teammates, unattended jobs, or unrelated projects enter the setup. These examples are untested end-to-end.
 
 The fictional management, staging, production, and unrelated-project account numbers are `111111111111`, `222222222222`, `333333333333`, and `444444444444`. The examples use `us-east-1`. Replace them everywhere with real values before execution. Addresses ending in `.invalid` intentionally cannot be used to create real accounts.
 

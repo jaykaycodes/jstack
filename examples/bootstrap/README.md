@@ -1,6 +1,6 @@
 # One working way to start
 
-These are original reference implementations to adapt, not an installer or a required platform. Identities and account numbers are fictional. The source has been reviewed, but **this pull request has not run it against a cloud account, installed clients, or proved a live login**. Read every command and substitute real choices before executing it.
+These are original reference implementations to adapt, not an installer or a required platform. Identities and account numbers are fictional. These examples are untested end-to-end. Read every command and substitute real choices before executing it.
 
 1. Follow the [access guide](../../references/access.md) to agree on scope and sign in.
 2. Use the [EC2 provisioning path](provision.md) from the owner's authenticated AWS console or CloudShell. It creates new, billable resources only when you deliberately run it.

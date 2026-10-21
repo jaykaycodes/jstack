@@ -1,0 +1,40 @@
+{
+  "example_only": true,
+  "id": "first-project-01",
+  "outcome": "blocked",
+  "goal": "A submitted reading-list item survives a page reload",
+  "revision": {
+    "commit": "1111111111111111111111111111111111111111",
+    "dirty": false
+  },
+  "environment": "fictional owner-box development service with disposable data",
+  "configuration": "development profile, schema revision 1; no secret values retained",
+  "proof": [
+    {
+      "surface": "browser",
+      "result": "blocked",
+      "revision": "1111111111111111111111111111111111111111",
+      "evidence": "fictional-run/browser-unavailable.txt"
+    }
+  ],
+  "review": {
+    "status": "pending",
+    "revision": null,
+    "evidence": null
+  },
+  "human_corrections": [],
+  "friction": [
+    {
+      "observation": "Browser integration was configured but no usable browser session exists",
+      "evidence": "fictional-run/doctor/browser.txt"
+    }
+  ],
+  "elapsed_minutes": 12,
+  "cost": {
+    "amount": null,
+    "currency": "USD",
+    "note": "Unknown; do not substitute zero"
+  },
+  "next_action": "Connect the actual browser session and repeat the changed interaction",
+  "privacy": "Use private artifact locations where needed; redact tokens, personal data, and proprietary content before sharing"
+}

@@ -1,0 +1,36 @@
+{
+  "example_only": true,
+  "checked_at": "2026-10-21T19:00:00Z",
+  "entries": [
+    {
+      "capability": "Read project source",
+      "required": true,
+      "identity": "development-agent on owner-box",
+      "probe": "Fetch the permitted development repository as the current agent process",
+      "expected": "Remote revision readable",
+      "status": "PASS",
+      "evidence": "fictional-run/doctor/source.txt",
+      "limit": "Does not prove write, merge, or scheduled-worker access"
+    },
+    {
+      "capability": "Exercise the first project's browser UI",
+      "required": true,
+      "identity": "browser session on owner-box",
+      "probe": "Open the running development page and submit a disposable example",
+      "expected": "UI submission persists and renders",
+      "status": "FAIL",
+      "evidence": "fictional-run/doctor/browser.txt",
+      "limit": "Browser tool unavailable; UI work is blocked until it is connected"
+    },
+    {
+      "capability": "Run a future scheduled maintenance task",
+      "required": false,
+      "identity": "dedicated scheduler runtime identity, not yet enrolled",
+      "probe": "No call made; scheduler is proposed",
+      "expected": "Harmless repository read from the actual scheduled runtime",
+      "status": "WARN",
+      "evidence": "fictional-run/doctor/scheduler-gap.txt",
+      "limit": "An interactive login does not establish scheduler access"
+    }
+  ]
+}

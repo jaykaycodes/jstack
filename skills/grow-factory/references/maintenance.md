@@ -26,3 +26,11 @@ Only schedule maintenance once a manual run has produced a useful, verified chan
 Avoid feedback loops: maintenance output is not a new user request, and self-generated suggestions do not count as independent observations. Cap work per run, deduplicate by underlying problem, and require evidence before retrying. Pause or disable a job that repeatedly fails or creates noise. Never create more automated work merely to justify the automation.
 
 Stop after the selected improvement is judged. Compare human interruptions, repeated repairs, time to proof, and cost across real tasks. Lines of instructions, number of agents, and pull request volume are not measures of a better factory.
+
+## Change guidance without multiplying it
+
+Put always-needed rules in the [canonical baseline](../assets/baseline.md), task-specific workflows in the appropriate skill, and environment facts in the owning project guide. Change the existing skill before adding another. A new skill needs a distinct recurring trigger; a description should tell the agent when to load it and distinguish nearby work.
+
+Keep `SKILL.md` short enough to scan. Put detailed conditional procedures in linked references and executable behavior in tools. End procedural steps with an observable check. Avoid model names, account identifiers, duplicated provider manuals, and instructions that a deterministic check could enforce. Preserve attribution and licenses for any adapted upstream text.
+
+For this kit, edit root `plugin.json` for metadata and the baseline for operating rules. Run `just adapters` from the checkout to regenerate the Claude and Cursor manifests and Cursor rule, then `just check`. Do not edit generated copies independently or silently rewrite client-wide settings. The [shared workflow setup](shared-workflows.md) explains client wiring and the fresh-session proof needed after changes.

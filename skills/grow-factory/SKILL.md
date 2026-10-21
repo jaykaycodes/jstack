@@ -1,17 +1,15 @@
 ---
 name: grow-factory
-description: Bootstrap an adaptable agent development environment, or improve its workflows using evidence from real tasks. Use for software factory setup and maintenance, not every ordinary code edit.
+description: Bootstrap a software factory with a persistent agent box, opinionated stack, shared client workflows, and a proved first project. Use for initial setup or substantial environment expansion.
 ---
 
 # Grow a software factory
 
-Help the owner build an environment that can build software and improve itself. Start from their goals and existing tools. This kit is a reference seed; adapt it rather than imposing a second organization on their projects.
+Help the owner build an environment that can build software and improve itself. Start from their goals and existing tools. For new work, use [factory-stack](../factory-stack/SKILL.md) as the default: Bun, TypeScript, Effect v4, just, mise, AWS, Cloudflare where appropriate, and PlanetScale for substantial managed Postgres. Preserve mature existing choices unless a concrete requirement justifies change.
 
-Choose the relevant mode:
+Read [bootstrap.md](references/bootstrap.md), then the stack's [ordered setup](../factory-stack/references/setup.md). Establish the box, real runtime access, common workflow source for the owner's clients, and task interface. Select only the project profile needed for the first useful outcome.
 
-- **Bootstrap:** read [bootstrap.md](references/bootstrap.md). Discover the current environment, establish a useful working loop, and prove it through the owner's first project.
-- **Do project work:** read [work-loop.md](references/work-loop.md) when establishing or repairing that loop. Once adopted, the project's own entrypoint and task interface should be enough for routine work.
-- **Improve the factory:** read [maintenance.md](references/maintenance.md). Use observed friction or an explicit human correction, make a scoped change, and measure its effect.
+Use [factory-work](../factory-work/SKILL.md) to establish planning, implementation, review, and proof. After bootstrap, the project's entrypoint and task interface should carry ordinary work. For ongoing improvement, use [factory-maintain](../factory-maintain/SKILL.md) rather than repeating bootstrap. Follow [shared-workflows.md](references/shared-workflows.md) for one source across coding clients.
 
 The adaptable [baseline](assets/baseline.md) is the single source for shared operating rules. Read it before proposing adoption. Preserve existing owner rules, resolve conflicts explicitly, and keep repository entrypoints short using [AGENTS.template.md](assets/AGENTS.template.md). Do not overwrite existing instruction files or paste the baseline into every skill.
 

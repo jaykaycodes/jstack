@@ -1,0 +1,4 @@
+# Tools for this reference kit's structural checks, not application version advice.
+[tools]
+node = "24.14.1"
+just = "1.58.0"

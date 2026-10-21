@@ -10,13 +10,19 @@ A small change can go straight from discovery to implementation. For a larger ch
 
 A compact work order can be a few lines: outcome; observable done checks; relevant context paths; constraints and authority; expected proof surface; current next action. Keep it in the task record, not the universal instructions.
 
+For substantial work, keep the plan in `docs/plans/<slug>.md` unless the project already has a home for plans. Start with what changes for the person, key decisions, and the next action. Give each implementation slice its location, observable completion check, and dependencies. State alternatives only when they could change the decision. Do not build dependent behavior while an unresolved product choice would invalidate it.
+
 ## Build and review
 
 Make the smallest coherent change. Reuse sibling patterns, keep module boundaries clear, and hide complexity behind simple interfaces. Migrate callers when changing an interface and delete obsolete paths instead of retaining compatibility shims without a real need. Keep tests that provide useful coverage. Add integration tests for important service or data boundaries and real-data checks for pipelines when they address the risk. Avoid unit tests that merely restate implementation; assertions must reject absent or undefined results.
 
+For a new module, sketch the caller's code before the implementation. Prefer a small interface that hides substantial behavior. When the structure is uncertain, compare two materially different shapes and choose the simpler one to use and change. Ask what complexity returns to callers if the module disappears; remove wrappers that only pass through. Put tests at interfaces callers actually use, with adapters only where behavior must vary. Record the selected boundary and reason with the owning area documentation.
+
 If parallel work helps, define optional roles such as scout, worker, and reviewer with bounded artifacts and authority. These are workflows, not fixed model choices. Use available tools or agents within the owner's cost and concurrency limits; do not create agents for their own sake. Separate worktrees avoid one worker overwriting another. Parallel tasks need distinct responsibilities, integration ownership, and a stopping condition.
 
 A scout returns relevant facts, evidence, and unknowns without changing the project. A worker implements a bounded outcome and returns the diff plus proof. A reviewer independently looks for behavior gaps and regressions in the exact revision, without treating the author's confidence as evidence.
+
+Use the [shared role contracts](../../factory-work/references/roles.md) when dispatching work. The coordinating agent specifies slices and judges their returned evidence. Keep unrelated tasks in separate worktrees, integrate their results, and check the combined revision.
 
 For substantial work, have a reviewer inspect the changed revision, intended behavior, relevant surrounding code, and raw proof with fresh context. Do not feed it only the author's conclusions. Record findings and the revision reviewed. If independent review is unavailable, mark that gap and apply the owner's policy instead of describing self-review as independent approval.
 
@@ -38,3 +44,9 @@ Initialize the run outcome as `unknown`. Change it to `passed` only when the rel
 Apply the owner's configured policy for commits, pull requests, merges, publication, and production. Prepare a reviewable artifact before asking for any final approval that policy requires. Full control of a development box does not grant production or public publishing permission.
 
 Report the outcome first, supporting evidence, relevant limitations, and exact human actions. Stop owned services and remote jobs that are no longer needed. Close the task record and leave durable knowledge accurate. Potential improvements go through the maintenance criteria; they do not automatically expand the task.
+
+## Keep enough knowledge to resume
+
+For a new project's durable engineering knowledge, start with `docs/index.md` and a small page owning setup and architecture. Add area pages only when the content needs them. Link decisions to their reason and relevant code; update the owning page when a change makes it wrong. Keep credentials, personal information, and raw private conversation content out of shared documentation. Respect an existing knowledge system rather than introducing a competing one.
+
+Before switching client or session, leave a compact handoff in the active task: outcome, repository and worktree, revision, verified progress with evidence paths, unresolved decisions, known traps, and the single next action. Reference existing files instead of copying them. Give the next agent an exact file to read; it must be able to resume without this chat. Archive completed task state separately from enduring operating rules.

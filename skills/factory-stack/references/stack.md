@@ -1,6 +1,6 @@
 # Stack and project profiles
 
-These are defaults for new projects. Read the linked official docs before scaffolding or making API assumptions, choose compatible supported releases, and pin them. Existing useful systems do not need a migration to resemble this kit.
+Read current official docs before scaffolding, choose compatible supported releases, and pin them.
 
 ## Common foundation
 
@@ -9,6 +9,8 @@ Use [Bun](https://bun.com/docs) for TypeScript execution, dependency installatio
 Keep a compatible supported Node.js release pinned too. Bun does not eliminate Node requirements: [Expo uses Node for some tooling](https://docs.expo.dev/guides/using-bun/), and [Astro documents its supported Node versions](https://docs.astro.build/en/install-and-setup/). Check each selected profile before choosing tool versions.
 
 Use [Effect v4](https://effect.website/docs/v4/getting-started) for core services: Schema at boundaries, typed expected errors, Layers for dependencies, scoped resources, and explicit concurrency. Use Effect HTTP and RPC for controlled application boundaries. Public third-party integrations should expose ordinary documented HTTP where that is the appropriate contract. UI components stay ordinary React or React Native; call service boundaries instead of turning component rendering into an Effect framework.
+
+This is a deliberate fit for agent-written software: runtime schemas check external data, typed errors expose failure paths, explicit service dependencies show what code needs, and fast checks give the agent concrete repair feedback. These are design reasons for the default, not a performance comparison against other stacks.
 
 Before writing or debugging Effect code, read the v4 docs and installed `effect` source. `effect-solutions` can supply useful patterns only when verified against the installed v4 APIs. Keep module interfaces small and explicit, reuse sibling patterns, and migrate callers while deleting obsolete interfaces. Do not add a parallel homegrown retry, dependency, or workflow framework beside capabilities already selected.
 
@@ -24,7 +26,7 @@ Use [just](https://just.systems/man/en/) as the public command interface, [mise]
 | Mobile | [Expo](https://docs.expo.dev/) + React Native + Expo Router + EAS | Native [SwiftUI](https://developer.apple.com/xcode/swiftui/) or [Kotlin Compose](https://developer.android.com/compose) for real platform requirements |
 | Compute and models | [Python + uv](https://docs.astral.sh/uv/) with [Modal](https://modal.com/docs) for offload | CPU/GPU capacity and remote builds when justified |
 
-React + Vite is this kit's recommendation for a new interactive web app; it is not a claim that every source project uses that web stack. Avoid adding a full-stack framework when a static frontend and explicit service suffice.
+React + Vite is the interactive-web starter. Keep a static frontend and explicit service when they suffice instead of adding a full-stack framework.
 
 Use EAS hosted builds for the Expo path. Native iOS builds and the iOS simulator need macOS and Xcode, using a remote Mac or hosted macOS continuous integration. The Linux agent box can orchestrate that work; it cannot act as the native iOS builder.
 

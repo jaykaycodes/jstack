@@ -1,4 +1,4 @@
-# Structural checks only: no installation, provisioning, or client sessions.
+# Structural and syntax checks only: no installation, provisioning, or client sessions.
 default:
     @just --list
 

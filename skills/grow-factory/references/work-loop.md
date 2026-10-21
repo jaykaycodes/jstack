@@ -1,10 +1,10 @@
 # A work loop that scales with the task
 
-Use this to establish the local workflow, not as paperwork for every edit. Reuse the project's existing interface, architecture, and owner policy.
+The owner directs intent and product decisions; the agent does implementation, proof, and review. Scale the process to the change and reuse the project's existing interfaces.
 
 ## Frame and discover
 
-State the user-visible outcome and how to observe success. Inspect code, area docs, prior runs, connected sources, and the relevant environment before asking the owner for facts already available. For a bug, reproduce it on the failing surface. A failed setup step is evidence to investigate, not permission to silently narrow the outcome.
+State the user-visible outcome and how to observe success. Inspect code, docs, prior runs, connected sources, and the environment before asking for facts already available. For a bug, reproduce it on the failing surface. Keep the source of important decisions findable so an agent can distinguish owner intent from a suggestion in a log.
 
 A small change can go straight from discovery to implementation. For a larger change, keep a short plan with constraints, boundaries, alternatives that matter, and done checks. Choose conventional defaults when reversible; ask for unresolved product decisions or actions outside granted scope. Keep a current next action so another session can continue.
 
@@ -24,7 +24,7 @@ A scout returns relevant facts, evidence, and unknowns without changing the proj
 
 Use the [shared role contracts](../../factory-work/references/roles.md) when dispatching work. The coordinating agent specifies slices and judges their returned evidence. Keep unrelated tasks in separate worktrees, integrate their results, and check the combined revision.
 
-For substantial work, have a reviewer inspect the changed revision, intended behavior, relevant surrounding code, and raw proof with fresh context. Do not feed it only the author's conclusions. Record findings and the revision reviewed. If independent review is unavailable, mark that gap and apply the owner's policy instead of describing self-review as independent approval.
+For substantial work, use an independent agent reviewer with fresh context: the request, changed revision, surrounding code, and raw proof. Record findings and the reviewed revision. Resolve material findings before shipping. This supplies engineering review without making the owner read every line; the owner still directs product and shipping decisions under the agreed policy. If independent review is unavailable, record the gap.
 
 ## Prove the actual result
 
@@ -41,7 +41,7 @@ Initialize the run outcome as `unknown`. Change it to `passed` only when the rel
 
 ## Ship and stop
 
-Apply the owner's configured policy for commits, pull requests, merges, publication, and production. Prepare a reviewable artifact before asking for any final approval that policy requires. Full control of a development box does not grant production or public publishing permission.
+Apply the owner's existing policy for commits, pull requests, merges, publication, and production. Prepare a reviewable artifact before any final approval that policy requires. Continue owner-authorized work without asking again; new scope follows the agreed policy.
 
 Report the outcome first, supporting evidence, relevant limitations, and exact human actions. Stop owned services and remote jobs that are no longer needed. Close the task record and leave durable knowledge accurate. Potential improvements go through the maintenance criteria; they do not automatically expand the task.
 

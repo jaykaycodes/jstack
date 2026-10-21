@@ -1,12 +1,12 @@
 # Provider defaults
 
-These are a starting policy, not vendor superiority claims. Keep an effective existing platform unless the project gives a concrete reason to change it. Use [Alchemy](https://alchemy.run/infrastructure-as-code/provider/) as the default TypeScript infrastructure-as-code layer for AWS, Cloudflare, and PlanetScale. Check each resource's current provider support and document any deliberate manual step or alternative instead of hiding it in prose.
+Use [Alchemy](https://alchemy.run/infrastructure-as-code/provider/) for TypeScript infrastructure across AWS, Cloudflare, and PlanetScale. Check resource support and document deliberate manual steps. The [access guide](../../../references/access.md) owns logins and bootstrap authority; [setup.md](setup.md) owns execution order.
 
 ## AWS for the box and main product
 
 Start with a persistent EC2 Linux agent box in the owner's account, encrypted persistent storage, and [Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) access. Suggest 4 vCPU and 16 GB memory as an initial development size, then fit the budget and actual workload. Prefer ARM when the needed native dependencies and clients support it; use x86 otherwise. Set spending visibility before increasing capacity.
 
-The owner should control the account, and the agent should administer its own environment and granted infrastructure. Use IAM roles and workload identity for services, Systems Manager Parameter Store or Secrets Manager for appropriate configuration and secrets, and S3 for AWS-local objects and build artifacts. Do not depend on a developer's interactive shell credentials for a scheduled service.
+Start with an owner-controlled dedicated factory account and broad agent administration within the agreed budget. Use an EC2 instance role for temporary AWS credentials and secure other provider credentials on the box. Retain a deliberate elevated maintenance path. Before teammates, unattended jobs, or production data, split trust domains and scope daily identities using the [account examples](../../../examples/bootstrap/README.md). Use Systems Manager Parameter Store or Secrets Manager for environment configuration/secrets and S3 for AWS-local objects and artifacts.
 
 Use AWS for the main product application and control plane when persistent services, networking, or AWS-local data make that useful. ECS Fargate is the default container service when a managed container deployment is warranted. Lambda fits small stateless event or request handlers with suitable runtime and lifecycle requirements; it is not a reason to fragment every service.
 
@@ -20,7 +20,7 @@ Workers use their own runtime. Do not deploy an unchanged Bun server or assume N
 
 ## PlanetScale for substantial managed Postgres
 
-Default to [PlanetScale Postgres](https://planetscale.com/docs/postgres) when the application needs a substantial managed PostgreSQL database, scaling, or high availability. Use local PostgreSQL for development. There is no invented traffic threshold or automatic claim that one vendor outperforms all others. Align database and application regions, manage connection limits, and plan schema migration, backups, and recovery with the chosen service.
+Default to [PlanetScale Postgres](https://planetscale.com/docs/postgres) for substantial managed PostgreSQL applications, scaling, or high availability. Use local PostgreSQL for development. Align database and application regions, manage connection limits, and plan schema migration, backups, and recovery with the chosen service.
 
 ## Source, delivery, and offload
 

@@ -4,7 +4,7 @@ Keep one versioned source of the four skills: `grow-factory` for bootstrap, `fac
 
 The kit includes a portable root [plugin.json](../../../plugin.json), generated Claude and Cursor compatibility manifests, and a generated Cursor baseline rule. The [baseline](../assets/baseline.md) remains canonical. [Role contracts](../../factory-work/references/roles.md) are shared task instructions; native subagent definitions and model selection are deliberately left to the client's supported configuration.
 
-These are setup instructions for the receiving engineer's development machine. They were checked against official documentation and installed command help, but no live client installation or discovery was tested while writing this kit. Keep the entire checkout because skill references cross folder boundaries.
+Use these routes on the machine running the client, including the persistent agent box. Keep the entire checkout because references cross skill folders. The [ordered setup](../../factory-stack/references/setup.md) owns box provisioning and sign-in; this page owns client wiring. These instructions received source/static checks, not live client tests.
 
 ## Start without installation
 

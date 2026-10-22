@@ -16,6 +16,10 @@ Before writing or debugging Effect code, read the v4 docs and installed `effect`
 
 Use [just](https://just.systems/man/en/) as the public command interface, [mise](https://mise.jdx.dev/) for pinned tools, and [Vite+](https://viteplus.dev/guide/) for lint, format, test, build, and task tooling in JS/TS projects. Configure the type checker explicitly as part of checks. Invoke the local `vp` command through `bun vp` inside recipes where installed. Use [Fallow](https://github.com/fallow-rs/fallow) to review unused code, duplication, and complexity; configure it for the chosen project and act on findings rather than quoting raw counts.
 
+Keep those responsibilities distinct. `just` is a command runner, not the build graph or a cache; recipes should stay thin and delegate substantial logic to scripts or native tooling. Run through `mise exec` or a configured pinned-tool PATH, including in CI and headless jobs. Let Vite+ own JS task dependencies and caching; do not independently describe the same graph in three places. Never cache deployment, provider probes, or device proof as if they were pure build outputs. [Just's scope](https://just.systems/man/en/), [Vite+ task caching](https://viteplus.dev/guide/cache).
+
+These are defaults with a purpose, not required layers. [Mise tasks](https://mise.jdx.dev/tasks/) already support tool/environment setup, dependencies, and parallel execution. A new project can use `mise run` as its single public task interface instead of adding `just`; preserve the same discoverable task contracts. Keep an existing `just` interface when it works. Migrate only for a concrete reduction in duplicated configuration, setup failures, or maintenance, and choose one owner for each task graph.
+
 ## Choose only the needed profile
 
 | Profile | Default | Add when needed |

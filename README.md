@@ -1,6 +1,6 @@
 # Software factory starter
 
-An opinionated software factory starter based on Jake's setup. You direct the product; the agent does the code, setup, research, infrastructure, and improvements to its environment.
+An opinionated starter for a personal agent workshop, based on Jake's setup. Give your agents a persistent box, useful tools, connected accounts, and shared workflows to research ideas, build software, automate work, and improve their own setup. A software factory is the first use case; you choose what to grow next.
 
 Run through **Claude Code or Codex connected to a box the agent controls**. In chat-only Cowork/claude.ai, use this as guidance and hand provisioning to the box session. Connected execution tools can enable host access; the prompt alone cannot.
 

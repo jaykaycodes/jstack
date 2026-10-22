@@ -1,11 +1,11 @@
 ---
 name: grow-factory
-description: Bootstrap an agent-operated software factory with an admin box, provider access, shared workflows, and a started first project. Use for initial setup or substantial environment expansion.
+description: Bootstrap a personal agent workshop for building software, research, and automation with an admin computer, account access, shared guidance, and a started project. Use for initial setup or substantial environment expansion.
 ---
 
-# Bootstrap the factory
+# Bootstrap the agent workshop
 
-Operate through Claude Code or Codex with shell access. The owner directs the product; do the setup, research, code, and infrastructure work. Inspect existing tools, learn the first project and budget, then use [factory-stack](../factory-stack/SKILL.md) for new choices.
+Operate through Claude Code or Codex with shell access. The owner directs the outcome; do the setup, research, code, and infrastructure work. Inspect existing tools, learn the first project and budget, then use [factory-stack](../factory-stack/SKILL.md) for new choices. Establish the workshop for the owner's intended work rather than assuming every project is an app.
 
 Follow the single [ordered setup](../factory-stack/references/setup.md). Use [bootstrap.md](references/bootstrap.md) for capability checks and context layout, [provider access](../../references/access.md) for guided sign-ins, and the [box examples](../../examples/bootstrap/README.md) as the concrete starting implementation.
 

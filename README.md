@@ -1,31 +1,31 @@
-# Software factory starter
+# jstack
 
-An opinionated starter for a personal agent workshop, based on Jake's setup. Give your agents a persistent box, useful tools, connected accounts, and shared workflows to research ideas, build software, automate work, and improve their own setup. A software factory is the first use case; you choose what to grow next.
+A starting point for your own agent workshop, based on Jake's setup. Give an agent a persistent computer, useful tools, access to the accounts you choose, and shared guidance. Use it to research ideas, build apps, automate work, and improve the setup as you go.
 
-Run through **Claude Code or Codex connected to a box the agent controls**. In chat-only Cowork/claude.ai, use this as guidance and hand provisioning to the box session. Connected execution tools can enable host access; the prompt alone cannot.
+Run through **Claude Code or Codex connected to a computer the agent controls**. A chat-only session can help you plan; hand the setup to an agent with computer access. The prompt alone does not grant that access.
 
 ## Give your agent this
 
 ```text
-Build my software factory from https://github.com/jaykaycodes/software-factory-starter.
-Read README.md and skills/grow-factory/SKILL.md, then operate the setup yourself.
-Use the stack/provider defaults. Ask what I want to build and my budget, inspect
-what I already have, and guide the provider and coding-agent sign-ins. Use browser
-or computer tools for the steps you can; bring me in for passwords, MFA, consent,
-and decisions that need me.
+Help me set up my own agent workshop using https://github.com/jaykaycodes/jstack.
+Read README.md and skills/grow-factory/SKILL.md. Ask what I want to do and my
+budget, inspect what I already have, and use the repo's recommended tools.
+Do the research, setup, coding, and infrastructure work yourself. Guide the
+account sign-ins; bring me in for passwords, MFA, consent, and decisions.
 
-Start with broad admin access to my own dedicated factory account and box, with
-credentials secured on the box. Get a reachable AWS box, a working signed-in agent,
-one passing just doctor/check, and my first project underway. Keep one shared
-workflow library across my coding clients. Then build the project, prove it works,
-and improve the factory from real friction. Tighten and separate access before
-adding teammates, unattended jobs, or production data. Do the work, don't just
-give me a plan. Preserve existing working tools; explain worthwhile deviations.
+Start with broad admin access to my own dedicated AWS account and computer
+within our agreed budget, with credentials secured there. Get the computer
+reachable, the agent signed in and responding, a real setup check passing,
+and my first project started. Keep shared guidance across my agent tools.
+Then do useful work, check the result, and improve the workshop from experience
+and worthwhile new capabilities. Tighten and separate access before adding
+teammates, unattended jobs, or production data. Preserve what already works
+and explain worthwhile changes. Do the work, don't just give me a plan.
 ```
 
-**First-hour target:** reachable box, real agent response, passing doctor/check, started project worktree. Signups can take longer; completing the product and improving the factory come next.
+**First-hour target:** a computer you can reach, an agent that responds on it, a passing setup check, and your first project underway. Signups can take longer.
 
-Defaults: **Bun + TypeScript + Effect v4**, **just + mise + Vite+ + Fallow**, **AWS**, **Cloudflare**, **PlanetScale Postgres**, **Alchemy**, **GitHub Actions**. Effect's runtime schemas, typed errors, service dependencies, and fast feedback help check agent-written services.
+You do not need to know the programming tools first. The [technical defaults](skills/factory-stack/SKILL.md) give your agent concrete choices for getting started.
 
 - [Bootstrap](skills/grow-factory/SKILL.md): [setup](skills/factory-stack/references/setup.md), [access](references/access.md), [box/doctor/account examples](examples/bootstrap/README.md).
 - [Stack](skills/factory-stack/SKILL.md): profiles, libraries, [CI reliability and Buildkite](skills/factory-stack/references/providers.md#source-delivery-and-offload), and [iOS delivery](references/ios-delivery.md).

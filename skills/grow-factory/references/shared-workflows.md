@@ -6,19 +6,21 @@ The kit includes a portable root [plugin.json](../../../plugin.json), generated 
 
 Use these routes on the machine running the client, including the persistent agent box. Keep the entire checkout because references cross skill folders. The [ordered setup](../../factory-stack/references/setup.md) owns box provisioning and sign-in; this page owns client wiring. These instructions received source/static checks, not live client tests.
 
+For existing installs, replace the previous plugin registration or local copy instead of loading both. The four skill folders are unchanged; update symlinks if the checkout moves. Claude's skill namespace is now `/jstack:`.
+
 ## Start without installation
 
 Clone the kit into a new directory on your development machine:
 
 ```sh
-git clone https://github.com/jaykaycodes/software-factory-starter "$HOME/src/software-factory-starter"
+git clone https://github.com/jaykaycodes/jstack "$HOME/src/jstack"
 ```
 
 Give any agent this instruction, replacing the path with the checkout's absolute path:
 
 ```text
-Read /absolute/path/software-factory-starter/README.md, then
-/absolute/path/software-factory-starter/skills/grow-factory/SKILL.md.
+Read /absolute/path/jstack/README.md, then
+/absolute/path/jstack/skills/grow-factory/SKILL.md.
 Use the shared stack, delivery, and maintenance skills from that checkout.
 Help me bootstrap my factory through a real project.
 ```
@@ -26,7 +28,7 @@ Help me bootstrap my factory through a real project.
 Record the source revision in local factory notes:
 
 ```sh
-git -C "$HOME/src/software-factory-starter" rev-parse HEAD
+git -C "$HOME/src/jstack" rev-parse HEAD
 ```
 
 For a project that adopts the kit, merge the [entrypoint template](../assets/AGENTS.template.md) into its existing client instructions. Use real absolute paths or checked-in project-relative paths. Preserve existing rules. An installed skill is discoverable workflow source; it does not automatically load the baseline in every session.
@@ -36,13 +38,13 @@ For a project that adopts the kit, merge the [entrypoint template](../assets/AGE
 From the application repository on the machine running Claude Code, start a session with this checkout loaded:
 
 ```sh
-claude --plugin-dir "$HOME/src/software-factory-starter"
+claude --plugin-dir "$HOME/src/jstack"
 ```
 
 Invoke the bootstrap skill in that session:
 
 ```text
-/software-factory-starter:grow-factory
+/jstack:grow-factory
 ```
 
 Use the same namespace for the other three skills. Point the project's `CLAUDE.md` at its local `AGENTS.md` and the canonical baseline, preserving existing content. A plugin's skill files do not replace that project entrypoint. For a service launching Claude, pass the plugin path in the actual launch configuration, then verify the running service loads it. [Claude's plugin documentation](https://code.claude.com/docs/en/plugins/create) describes session loading and skill namespacing.
@@ -59,7 +61,7 @@ Link each skill to the retained checkout. `ln -s` refuses an existing destinatio
 
 ```sh
 for skill_name in grow-factory factory-stack factory-work factory-maintain; do
-  ln -s "$HOME/src/software-factory-starter/skills/$skill_name" ".agents/skills/$skill_name" || break
+  ln -s "$HOME/src/jstack/skills/$skill_name" ".agents/skills/$skill_name" || break
 done
 ```
 
@@ -78,7 +80,7 @@ mkdir -p "$HOME/.cursor/plugins/local"
 Copy the complete checkout into a new local-plugin directory. This command fails rather than replacing an existing installation:
 
 ```sh
-node -e 'require("node:fs").cpSync(process.env.HOME + "/src/software-factory-starter", process.env.HOME + "/.cursor/plugins/local/software-factory-starter", { recursive: true, errorOnExist: true, force: false, filter: (source) => !source.split("/").includes(".git") })'
+node -e 'require("node:fs").cpSync(process.env.HOME + "/src/jstack", process.env.HOME + "/.cursor/plugins/local/jstack", { recursive: true, errorOnExist: true, force: false, filter: (source) => !source.split("/").includes(".git") })'
 ```
 
 Reload Cursor and inspect **Customize** for the four skills. Invoke `/grow-factory`. If Cursor chooses the portable manifest, skills remain available but Cursor-specific rules may not load. Keep a project baseline pointer in its supported instructions and inspect the rule list rather than assuming parity. The compatibility manifest declares `skills/` and `rules/` for the Cursor format.

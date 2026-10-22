@@ -1,13 +1,13 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "software-factory-starter",
-  "version": "0.3.0",
-  "description": "Bootstrap an agent box, build with shared workflows and strong stack defaults, and improve the factory from real work.",
+  "name": "jstack",
+  "version": "0.4.0",
+  "description": "Build a personal agent workshop with a persistent computer, useful tools, connected accounts, and shared guidance for research, software, automation, and improving the setup.",
   "author": { "name": "Jake Correa" },
-  "homepage": "https://github.com/jaykaycodes/software-factory-starter",
-  "repository": "https://github.com/jaykaycodes/software-factory-starter",
+  "homepage": "https://github.com/jaykaycodes/jstack",
+  "repository": "https://github.com/jaykaycodes/jstack",
   "license": "MIT",
-  "keywords": ["software-factory", "effect", "just", "mise", "agent-skills"],
+  "keywords": ["agent-workshop", "software-factory", "research", "automation", "agent-skills"],
   "extensions": {
     "com.openai": { "onboardingSkill": "./skills/grow-factory/SKILL.md" }
   }

@@ -18,7 +18,7 @@ const baseline = read('skills/grow-factory/assets/baseline.md');
 const outputs = {
   '.claude-plugin/plugin.json': `${JSON.stringify(compat, null, 2)}\n`,
   '.cursor-plugin/plugin.json': `${JSON.stringify({ ...compat, rules: './rules/', skills: './skills/' }, null, 2)}\n`,
-  'rules/factory-baseline.mdc': `---\ndescription: Shared software factory operating baseline\nalwaysApply: true\n---\n\n<!-- Generated from skills/grow-factory/assets/baseline.md by just adapters. -->\n${baseline}`,
+  'rules/factory-baseline.mdc': `---\ndescription: jstack shared operating baseline\nalwaysApply: true\n---\n\n<!-- Generated from skills/grow-factory/assets/baseline.md by just adapters. -->\n${baseline}`,
 };
 for (const [path, expected] of Object.entries(outputs)) {
   if (write) {

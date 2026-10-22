@@ -28,7 +28,7 @@ give me a plan. Preserve existing working tools; explain worthwhile deviations.
 Defaults: **Bun + TypeScript + Effect v4**, **just + mise + Vite+ + Fallow**, **AWS**, **Cloudflare**, **PlanetScale Postgres**, **Alchemy**, **GitHub Actions**. Effect's runtime schemas, typed errors, service dependencies, and fast feedback help check agent-written services.
 
 - [Bootstrap](skills/grow-factory/SKILL.md): [setup](skills/factory-stack/references/setup.md), [access](references/access.md), [box/doctor/account examples](examples/bootstrap/README.md).
-- [Stack](skills/factory-stack/SKILL.md): profiles, providers, libraries, and [iOS delivery](references/ios-delivery.md).
+- [Stack](skills/factory-stack/SKILL.md): profiles, libraries, [CI reliability and Buildkite](skills/factory-stack/references/providers.md#source-delivery-and-offload), and [iOS delivery](references/ios-delivery.md).
 - [Work](skills/factory-work/SKILL.md) and [maintenance](skills/factory-maintain/SKILL.md): ship useful software and improve the next run.
 - [Shared workflows](skills/grow-factory/references/shared-workflows.md): four skills across Claude Code, Codex, and Cursor.
 - [Emerging options](references/emerging.md) and [proposed scouting](references/landscape-scouting.md): discover and evaluate opportunities, not automatic migrations.

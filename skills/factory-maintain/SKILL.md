@@ -1,16 +1,16 @@
 ---
 name: factory-maintain
-description: Improve factory tools, instructions, dependencies, or infrastructure from repeated friction or a human correction. Use for an evidence-based maintenance pass; use factory-work for product changes and grow-factory for initial setup.
+description: Improve factory tools, workflows, dependencies, or infrastructure from observed friction, an owner correction, or research into new capabilities. Use for corrective maintenance or opportunity evaluation; use factory-work for product changes and grow-factory for initial setup.
 ---
 
 # Improve the next run
 
-Read the [shared baseline](../grow-factory/assets/baseline.md) and [maintenance loop](../grow-factory/references/maintenance.md). Start from real work and use the owner-authorized maintenance path.
+Read the [shared baseline](../grow-factory/assets/baseline.md) and [maintenance loop](../grow-factory/references/maintenance.md). Use the owner-authorized maintenance path for corrective work or a bounded opportunity evaluation.
 
-1. Inspect relevant failures, corrections, run records, and reviews. Pick one recurring cause or explicit human correction and link the evidence.
-2. Choose the smallest change that removes the cause. Prefer deleting friction or adding an executable check over expanding instructions. Use [factory-stack](../factory-stack/SKILL.md) for a new provider, runtime, or library decision.
-3. Record the before measurement and expected improvement. Make a bounded change within the owner's policy. Keep unrelated suggestions separate.
-4. Repeat the representative scenario. For substantial changes, use independent review through [factory-work](../factory-work/SKILL.md). For instruction changes, observe a fresh session when claiming changed agent behavior.
-5. Adopt, revise, revert, or mark unverified. Report the evidence and stop. Add a schedule only after a useful manual pass and a recurring need.
+1. Pick a recurring cause, an owner correction, or a credible new capability worth researching. For opportunities, verify current primary sources, release dates, and availability; identify the factory task it could improve. No prior failure is required to investigate a useful new capability.
+2. Choose the smallest correction or bounded trial. Prefer simplification and executable checks over more instructions. Use [factory-stack](../factory-stack/SKILL.md) for technology decisions.
+3. Record the baseline, expected benefit, and time/spend limit. Run the scoped change or comparison within existing authority; research does not authorize a migration.
+4. Exercise the representative scenario and inspect the result. Use independent review for substantial changes, and fresh-session observation when claiming changed instruction behavior.
+5. Adopt, revise, revert, watch, or reject based on evidence; mark untested benefit unverified. Report and stop. Schedule only when a useful manual pass and recurring need earn it.
 
-Use [emerging options](../../references/emerging.md) for candidates that address an observed need. When changing guidance, apply the authoring rules in the maintenance reference. Regenerate this kit's adapters with `just adapters` after metadata/baseline changes, then run `just check`. Those are structural checks; measure operational benefit separately.
+Use [emerging options](../../references/emerging.md) for candidate context and [landscape scouting](../../references/landscape-scouting.md) for a proposed discovery process. That process is not running in this kit. When changing guidance, apply the maintenance reference's authoring rules. Regenerate adapters with `just adapters` after metadata/baseline changes, then run `just check`; those are structural checks, not proof of operational benefit.

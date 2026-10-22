@@ -1,6 +1,8 @@
 # Emerging factory infrastructure
 
-Research checked October 21, 2026. These are evaluation options, not installed capabilities. Keep Git, GitHub Actions, isolated task worktrees, and S3 or R2 artifacts as the starting defaults. Revisit a choice when a real workload exposes a limit.
+Research checked October 21, 2026. These are evaluation options, not installed capabilities. Keep Git, GitHub Actions, isolated task worktrees, and S3 or R2 artifacts as the starting defaults. Revisit a choice when work exposes a limit or fresh evidence suggests a useful capability.
+
+This is a dated snapshot. The [proposed landscape-scouting process](landscape-scouting.md) describes how a factory could discover fresh releases, providers, and shipping approaches before existing work fails. No scout job is implemented or running in this kit; verify current primary evidence before a bounded trial or adoption.
 
 ## Source control and integration
 

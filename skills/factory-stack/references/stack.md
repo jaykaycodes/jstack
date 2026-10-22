@@ -28,7 +28,7 @@ Use [just](https://just.systems/man/en/) as the public command interface, [mise]
 
 React + Vite is the interactive-web starter. Keep a static frontend and explicit service when they suffice instead of adding a full-stack framework.
 
-Use EAS hosted builds for the Expo path. Native iOS builds and the iOS simulator need macOS and Xcode, using a remote Mac or hosted macOS continuous integration. The Linux agent box can orchestrate that work; it cannot act as the native iOS builder.
+Use EAS hosted builds for the Expo path. Follow [iOS delivery](../../../references/ios-delivery.md) for Expo/EAS setup, signing, App Store Connect, TestFlight, and release guidance. Native iOS builds and the iOS simulator need macOS and Xcode, using a remote Mac or hosted macOS continuous integration. The Linux agent box can orchestrate that work; it cannot act as the native iOS builder.
 
 Use local PostgreSQL for development where PostgreSQL is the target. Use [PlanetScale Postgres](https://planetscale.com/docs/postgres) for substantial managed PostgreSQL applications. Use Cloudflare D1 only for simple applications whose data and transaction needs fit SQLite. Match the real database semantics; do not quietly replace PostgreSQL with D1.
 
